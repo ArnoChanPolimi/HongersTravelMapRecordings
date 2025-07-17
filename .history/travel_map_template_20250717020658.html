@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arno's Travel Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      height: 100%;
+    }
+    .popup-img {
+      width: 200px;
+      border-radius: 8px;
+    }
+    .popup-title {
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    .popup-text {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  ></script>
+  <script>
+    const map = L.map('map').setView([31.2304, 121.4737], 4);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // 上海
+    L.marker([31.2304, 121.4737]).addTo(map).bindPopup(`
+      <div class="popup-title">上海</div>
+      <img class="popup-img" src="https://upload.wikimedia.org/wikipedia/commons/3/39/The_Bund%2C_Shanghai_%28Bund%29.jpg" />
+      <p class="popup-text">外滩夜景，吃小笼包。</p>
+    `);
+
+    // 巴黎
+    L.marker([48.8566, 2.3522]).addTo(map).bindPopup(`
+      <div class="popup-title">巴黎</div>
+      <img class="popup-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg" />
+      <p class="popup-text">卢浮宫 + 埃菲尔铁塔。</p>
+    `);
+
+    // 东京
+    L.marker([35.6895, 139.6917]).addTo(map).bindPopup(`
+      <div class="popup-title">东京</div>
+      <img class="popup-img" src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Shibuya_Night.jpg" />
+      <p class="popup-text">涩谷逛街，吃寿司！</p>
+    `);
+  </script>
+</body>
+</html>

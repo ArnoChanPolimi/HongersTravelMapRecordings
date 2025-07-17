@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arno's Travel Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Viewer.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/viewerjs@1.11.3/dist/viewer.min.css" />
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      height: 100%;
+    }
+    .photo-stack {
+      position: relative;
+      width: 220px;
+      height: 160px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .photo-stack img {
+      position: absolute;
+      width: 200px;
+      height: auto;
+      object-fit: cover;
+      aspect-ratio: 4/3;
+      border-radius: 8px;
+      cursor: zoom-in;
+      transition: transform 0.3s ease, z-index 0.3s ease;
+    }
+    .popup-title {
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    .popup-text {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/viewerjs@1.11.3/dist/viewer.min.js"></script>
+
+  <script>
+    const map = L.map('map').setView([31.2304, 121.4737], 4);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    function generateStackHTML(imageList) {
+      return imageList.map((src, i) => {
+        return `<img class="viewer-item" src="${src}" style="transform: translate(${Math.min(i, 10)*6}px, ${Math.min(i, 10)*6}px); z-index: ${i};" alt="photo${i}">`;
+      }).join('');
+    }
+
+    const shanghaiImages = [
+      "pictures/Shanghai/HK_VictoriaHarbor.jpg",
+      "pictures/Shanghai/HK_daylight.jpg",
+      "pictures/Shanghai/DSC_3349.jpg",
+      "pictures/Shanghai/DSC_3361.jpg",
+      "pictures/Shanghai/DSC_2975.jpg",
+      "pictures/Shanghai/DSC_3178.jpg",
+    ];
+
+    const HongKongImages = [
+      "pictures/HongKong/HK_VictoriaHarbor.jpg",
+      "pictures/HongKong/HK_daylight.jpg",
+      "pictures/HongKong/DSC_3349.jpg",
+      "pictures/HongKong/DSC_3361.jpg",
+      "pictures/HongKong/DSC_2975.jpg",
+      "pictures/HongKong/DSC_3178.jpg",
+    ];
+
+    const aronaImages = [
+      "pictures/Arona/DSC_5670.jpg",
+      "pictures/Arona/DSC_5836.jpg",
+      "pictures/Arona/DSC_5770.jpg",
+      "pictures/Arona/DSC_5794.jpg",
+      "pictures/Arona/DSC_5801.jpg",
+      "pictures/Arona/DSC_5834.jpg"
+    ];
+
+    const locations = [
+      {
+        name: '上海',
+        coord: [31.2304, 121.4737],
+        images: shanghaiImages,
+        desc: '外滩夜景真的震撼，doge！'
+      },
+      {
+        name: 'HK',
+        coord: [22.304359, 114.173567],
+        images: HongKongImages,
+        desc: '维多利亚港非常漂亮!'
+      },
+      {
+        name: 'Arona',
+        coord: [45.757011, 8.560010],
+        images: aronaImages,
+        desc: '看着美丽的湖面，喝着 Macchiato，我觉得理想生活就应该这样！'
+      }
+    ];
+
+    locations.forEach(loc => {
+      L.marker(loc.coord).addTo(map).bindPopup(`
+        <div class="popup-title">${loc.name}</div>
+        <div class="photo-stack viewer-group" data-photos>
+          ${generateStackHTML(loc.images)}
+        </div>
+        <p class="popup-text">${loc.desc}</p>
+      `);
+    });
+
+    map.on('popupopen', function (e) {
+      const container = e.popup._contentNode.querySelector('.viewer-group');
+      if (container) {
+        new Viewer(container, {
+          toolbar: true,
+          navbar: false,
+          title: true,
+          tooltip: true
+        });
+      }
+
+      const stack = e.popup._contentNode.querySelector('[data-photos]');
+      if (!stack) return;
+      const imgs = stack.querySelectorAll('img');
+      let currentIndex = 0;
+      let interval = null;
+
+      function updateZIndices() {
+        imgs.forEach((img, i) => {
+          img.style.zIndex = i === currentIndex ? imgs.length : i;
+          img.style.transform = i === currentIndex
+            ? `translate(${Math.min(i, 10)*6}px, ${Math.min(i, 10)*6}px) scale(1.05) rotate(0.3deg)`
+            : `translate(${Math.min(i, 10)*6}px, ${Math.min(i, 10)*6}px)`;
+        });
+      }
+
+      stack.addEventListener('mousemove', (e) => {
+        const rect = stack.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const boundary = 40;
+        let direction = 0;
+
+        if (x < boundary) direction = -1;
+        else if (x > rect.width - boundary) direction = 1;
+
+        if (direction !== 0 && !interval) {
+          interval = setInterval(() => {
+            currentIndex = Math.max(0, Math.min(imgs.length - 1, currentIndex + direction));
+            updateZIndices();
+          }, 600 - Math.min(300, Math.abs(direction === -1 ? x : rect.width - x)));
+        }
+      });
+
+      stack.addEventListener('mouseleave', () => {
+        clearInterval(interval);
+        interval = null;
+        updateZIndices();
+      });
+    });
+  </script>
+</body>
+</html>

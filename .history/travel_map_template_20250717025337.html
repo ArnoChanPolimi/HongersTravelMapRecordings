@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arno's Travel Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Viewer.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/viewerjs@1.11.3/dist/viewer.min.css" />
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      height: 100%;
+    }
+    .popup-img {
+      width: 200px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      cursor: zoom-in;
+    }
+    .popup-title {
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    .popup-text {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Viewer.js JS -->
+  <script src="https://cdn.jsdelivr.net/npm/viewerjs@1.11.3/dist/viewer.min.js"></script>
+
+  <script>
+    const map = L.map('map').setView([31.2304, 121.4737], 4);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // 上海
+    L.marker([31.2304, 121.4737]).addTo(map).bindPopup(`
+      <div class="popup-title">上海</div>
+      <div class="viewer-group">
+        <img class="popup-img viewer-item" src="pictures/Shanghai/HK_VictoriaHarbor.jpg" alt="外滩夜景">
+        <img class="popup-img viewer-item" src="pictures/Shanghai/HK_daylight.jpg" alt="白天的外滩">
+        <img class="popup-img viewer-item" src="pictures/Shanghai/DSC_3349.jpg" alt="白天的外滩">
+        <img class="popup-img viewer-item" src="pictures/Shanghai/DSC_3361.jpg" alt="白天的外滩">
+        <img class="popup-img viewer-item" src="pictures/Shanghai/DSC_2975.jpg" alt="白天的外滩">
+        <img class="popup-img viewer-item" src="pictures/Shanghai/DSC_3178.jpg" alt="白天的外滩">
+      </div>
+      <p class="popup-text">外滩夜景真的震撼，doge！</p>
+    `);
+
+    // Arona
+    L.marker([45.757011, 8.560010]).addTo(map).bindPopup(`
+      <div class="popup-title">Arona</div>
+      <div class="viewer-group">
+        <img class="popup-img viewer-item" src="pictures/Shanghai/HK_daylight.jpg" alt="湖边咖啡">
+      </div>
+      <p class="popup-text">看着美丽的湖面，喝着 Macchiato，我觉得理想生活就应该这样！</p>
+    `);
+
+    // ✅ Viewer.js 激活，每次 popup 打开时应用到当前图片区域
+    map.on('popupopen', function (e) {
+      const container = e.popup._contentNode.querySelector('.viewer-group');
+      if (container) {
+        new Viewer(container, {
+          toolbar: true,
+          navbar: false,
+          title: true,
+          tooltip: true
+        });
+      }
+    });
+  </script>
+</body>
+</html>

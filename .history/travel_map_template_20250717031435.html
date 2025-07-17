@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arno's Travel Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Viewer.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/viewerjs@1.11.3/dist/viewer.min.css" />
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      height: 100%;
+    }
+    .photo-stack {
+      position: relative;
+      width: 220px;
+      height: 160px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .photo-stack img {
+      position: absolute;
+      width: 200px;
+      height: auto;
+      object-fit: cover;
+      aspect-ratio: 4/3;
+      border-radius: 8px;
+      cursor: zoom-in;
+      transition: transform 0.3s ease, z-index 0.3s ease;
+    }
+    .popup-title {
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    .popup-text {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Viewer.js JS -->
+  <script src="https://cdn.jsdelivr.net/npm/viewerjs@1.11.3/dist/viewer.min.js"></script>
+
+  <script>
+    const map = L.map('map').setView([31.2304, 121.4737], 4);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // 图片堆叠生成函数
+    function generateStackHTML(imageList) {
+      return imageList.map((src, i) => {
+        return `<img class="viewer-item" src="${src}" style="transform: translate(${Math.min(i, 10)*6}px, ${Math.min(i, 10)*6}px); z-index: ${i};" alt="photo${i}">`;
+      }).join('');
+    }
+
+    // 上海
+    const shanghaiImages = [
+      "pictures/Shanghai/HK_VictoriaHarbor.jpg",
+      "pictures/Shanghai/HK_daylight.jpg",
+      "pictures/Shanghai/DSC_3349.jpg",
+      "pictures/Shanghai/DSC_3361.jpg",
+      "pictures/Shanghai/DSC_2975.jpg",
+      "pictures/Shanghai/DSC_3178.jpg",
+      // 可继续添加更多照片
+    ];
+
+    L.marker([31.2304, 121.4737]).addTo(map).bindPopup(`
+      <div class="popup-title">上海</div>
+      <div class="photo-stack viewer-group" data-photos>
+        ${generateStackHTML(shanghaiImages)}
+      </div>
+      <p class="popup-text">外滩夜景真的震撼，doge！</p>
+    `);
+
+    // Arona
+    L.marker([45.757011, 8.560010]).addTo(map).bindPopup(`
+      <div class="popup-title">Arona</div>
+      <div class="viewer-group">
+        <img class="viewer-item" src="pictures/Shanghai/HK_daylight.jpg" alt="湖边咖啡" style="width: 200px; border-radius: 8px;" />
+      </div>
+      <p class="popup-text">看着美丽的湖面，喝着 Macchiato，我觉得理想生活就应该这样！</p>
+    `);
+
+    // Viewer & 自适应堆叠交互
+    map.on('popupopen', function (e) {
+      const container = e.popup._contentNode.querySelector('.viewer-group');
+      if (container) {
+        new Viewer(container, {
+          toolbar: true,
+          navbar: false,
+          title: true,
+          tooltip: true
+        });
+      }
+
+      const stack = e.popup._contentNode.querySelector('[data-photos]');
+      if (!stack) return;
+      const imgs = stack.querySelectorAll('img');
+      let currentIndex = 0;
+
+      let scrollTimeout;
+
+      stack.addEventListener('mousemove', (event) => {
+        const rect = stack.getBoundingClientRect();
+        const boundary = 40;
+        const x = event.clientX - rect.left;
+        const leftZone = x < boundary;
+        const rightZone = x > rect.width - boundary;
+
+        if (!leftZone && !rightZone) return;
+
+        if (!scrollTimeout) {
+          scrollTimeout = setTimeout(() => {
+            if (rightZone && currentIndex < imgs.length - 1) {
+              currentIndex++;
+            } else if (leftZone && currentIndex > 0) {
+              currentIndex--;
+            }
+
+            imgs.forEach((img, i) => {
+              img.style.zIndex = i <= currentIndex ? i : 0;
+            });
+            scrollTimeout = null;
+          }, 200);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

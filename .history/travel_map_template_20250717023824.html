@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arno's Travel Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Leaflet 样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Lightbox2 样式和脚本 -->
+  <link href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.4/dist/css/lightbox.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.4/dist/js/lightbox.min.js"></script>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      height: 100%;
+    }
+    .popup-img {
+      width: 200px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .popup-title {
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    .popup-text {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Leaflet 脚本 -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    const map = L.map('map').setView([31.2304, 121.4737], 4);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // 上海
+    L.marker([31.2304, 121.4737]).addTo(map).bindPopup(`
+      <div class="popup-title">上海</div>
+
+      <a href="pictures/Shanghai/HK_VictoriaHarbor.jpg" data-lightbox="shanghai" data-title="外滩夜景">
+        <img class="popup-img" src="pictures/Shanghai/HK_VictoriaHarbor.jpg" />
+      </a>
+
+      <a href="pictures/Shanghai/HK_daylight.jpg" data-lightbox="shanghai" data-title="白天的外滩">
+        <img class="popup-img" src="pictures/Shanghai/HK_daylight.jpg" />
+      </a>
+
+      <p class="popup-text">外滩夜景真的震撼，doge！</p>
+    `);
+
+    // 巴黎
+    L.marker([48.8566, 2.3522]).addTo(map).bindPopup(`
+      <div class="popup-title">巴黎</div>
+      <a href="https://upload.wikimedia.org/wikipedia/commons/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg" data-lightbox="paris" data-title="埃菲尔铁塔">
+        <img class="popup-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg" />
+      </a>
+      <p class="popup-text">卢浮宫 + 埃菲尔铁塔。</p>
+    `);
+
+    // 东京
+    L.marker([45.757011, 8.560010]).addTo(map).bindPopup(`
+      <div class="popup-title">Arona</div>
+      <a href="pictures/Shanghai/HK_daylight.jpg" data-lightbox="arona" data-title="湖边咖啡">
+        <img class="popup-img" src="pictures/Shanghai/HK_daylight.jpg" />
+      </a>
+      <p class="popup-text">看着美丽的湖面, 喝着 Macchiato, 我觉得理想生活就应该这样！</p>
+    `);
+
+    // 关键：重新绑定 Lightbox2 图片（支持 Leaflet 弹窗）
+    map.on('popupopen', function () {
+      if (typeof lightbox !== 'undefined' && typeof lightbox.init === 'function') {
+        lightbox.init();
+      }
+    });
+  </script>
+</body>
+</html>

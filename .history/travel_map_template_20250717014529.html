@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arno's Travel Map</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-sA+e2XkZQmMSI3sP1hlR2kOdpOWqFBAz7rD+4jWkF6s="
+    crossorigin=""
+  />
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    #map { height: 100vh; }
+    .popup-img { width: 100%; max-width: 250px; border-radius: 8px; }
+    .popup-title { font-size: 18px; font-weight: bold; margin: 5px 0; }
+    .popup-text { font-size: 14px; color: #333; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-o8N1kQ+U5EXsHXk2UZoO8VwFMi2XBnR0zZ+e8Dqvxlw="
+    crossorigin=""
+  ></script>
+  <script>
+    const map = L.map('map').setView([31.2304, 121.4737], 4); // 中国起始视图
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // 示例地点：上海
+    L.marker([31.2304, 121.4737]).addTo(map).bindPopup(`
+      <div class="popup-title">上海</div>
+      <img class="popup-img" src="https://upload.wikimedia.org/wikipedia/commons/3/39/The_Bund%2C_Shanghai_%28Bund%29.jpg" />
+      <p class="popup-text">在外滩散步，吃了小笼包。很棒的旅程！</p>
+    `);
+
+    // 示例地点：巴黎
+    L.marker([48.8566, 2.3522]).addTo(map).bindPopup(`
+      <div class="popup-title">巴黎</div>
+      <img class="popup-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg" />
+      <p class="popup-text">参观埃菲尔铁塔、卢浮宫，还有咖啡馆美食！</p>
+    `);
+
+    // 示例地点：东京
+    L.marker([35.6895, 139.6917]).addTo(map).bindPopup(`
+      <div class="popup-title">东京</div>
+      <img class="popup-img" src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Shibuya_Night.jpg" />
+      <p class="popup-text">在涩谷体验夜生活，还吃了拉面和寿司 🍜</p>
+    `);
+  </script>
+</body>
+</html>

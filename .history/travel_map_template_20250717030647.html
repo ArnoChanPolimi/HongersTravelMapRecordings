@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arno's Travel Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Viewer.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/viewerjs@1.11.3/dist/viewer.min.css" />
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      height: 100%;
+    }
+    .photo-stack {
+      position: relative;
+      width: 220px;
+      height: 150px;
+      margin-bottom: 10px;
+    }
+    .photo-stack img {
+      width: 200px;
+      border-radius: 8px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      cursor: zoom-in;
+      transition: transform 0.3s, z-index 0.3s;
+    }
+    .photo-stack img:nth-child(2) {
+      transform: translate(10px, 10px);
+      z-index: 1;
+    }
+    .photo-stack img:nth-child(3) {
+      transform: translate(20px, 20px);
+      z-index: 0;
+    }
+    .photo-stack img:nth-child(4) {
+      transform: translate(30px, 30px);
+      z-index: 0;
+    }
+    .photo-stack img:nth-child(5) {
+      transform: translate(40px, 40px);
+      z-index: 0;
+    }
+    .photo-stack img:hover {
+      z-index: 10 !important;
+      transform: scale(1.05) !important;
+    }
+    .popup-title {
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    .popup-text {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Viewer.js JS -->
+  <script src="https://cdn.jsdelivr.net/npm/viewerjs@1.11.3/dist/viewer.min.js"></script>
+
+  <script>
+    const map = L.map('map').setView([31.2304, 121.4737], 4);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+        // 上海
+    L.marker([31.2304, 121.4737]).addTo(map).bindPopup(`
+      <div class="popup-title">上海</div>
+      <div class="photo-stack viewer-group">
+        <img class="popup-img viewer-item active" src="pictures/Shanghai/HK_VictoriaHarbor.jpg" alt="外滩夜景">
+        <img class="popup-img viewer-item" src="pictures/Shanghai/HK_daylight.jpg" alt="白天的外滩">
+        <img class="popup-img viewer-item" src="pictures/Shanghai/DSC_3349.jpg" alt="图3">
+        <img class="popup-img viewer-item" src="pictures/Shanghai/DSC_3361.jpg" alt="图4">
+        <img class="popup-img viewer-item" src="pictures/Shanghai/DSC_2975.jpg" alt="图5">
+        <img class="popup-img viewer-item" src="pictures/Shanghai/DSC_3178.jpg" alt="图6">
+      </div>
+      <p class="popup-text">外滩夜景真的震撼，doge！</p>
+    `);
+
+    // Arona
+    L.marker([45.757011, 8.560010]).addTo(map).bindPopup(`
+      <div class="popup-title">Arona</div>
+      <div class="photo-stack viewer-group">
+        <img class="popup-img viewer-item active" src="pictures/Arona/DSC_5670.jpg" alt="玉兰花开了">
+        <img class="popup-img viewer-item" src="pictures/Arona/DSC_5836.jpg" alt="美丽的城堡">
+        <img class="popup-img viewer-item" src="pictures/Arona/DSC_5770.jpg" alt="图3">
+        <img class="popup-img viewer-item" src="pictures/Arona/DSC_5794.jpg" alt="宁静的湖面">
+        <img class="popup-img viewer-item" src="pictures/Arona/DSC_5801.jpg" alt="美丽的小镇">
+        <img class="popup-img viewer-item" src="pictures/Arona/DSC_5834.jpg" alt="眺望远处的雪山">
+      </div>
+      <p class="popup-text">看着美丽的湖面，喝着 Macchiato, 我觉得理想生活就应该这样!</p>
+    `);
+
+    // 激活 Viewer.js
+    map.on('popupopen', function (e) {
+      const container = e.popup._contentNode.querySelector('.viewer-group');
+      if (container) {
+        new Viewer(container, {
+          toolbar: true,
+          navbar: false,
+          title: true,
+          tooltip: true
+        });
+      }
+    });
+  </script>
+</body>
+</html>
