@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arno's Travel Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/viewerjs@1.11.3/dist/viewer.min.css" />
+
+  <style>
+    html, body { height: 100%; margin: 0; padding: 0; background: transparent; }
+    #map { height: 100%; }
+
+    .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+      background: rgba(255, 255, 255, 0.5); /* 半透明背景：20% 可见 */
+      box-shadow: none;
+    }
+
+    .photo-carousel {
+      position: relative;
+      width: 220px;
+      height: 160px;
+      margin: 0 auto 10px;
+      overflow: hidden;
+    }
+    .photo-carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: zoom-in;
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .photo-carousel img.active {
+      display: block;
+    }
+    .carousel-arrow {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 40px;
+      background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0));
+      color: white;
+      font-size: 24px;
+      border: none;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .carousel-arrow.carousel-next {
+      right: 0;
+      background: linear-gradient(to left, rgba(0,0,0,0.4), rgba(0,0,0,0));
+    }
+    .carousel-arrow:hover {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    .popup-title {
+      font-weight: bold;
+      margin: 5px 0;
+      text-align: center;
+      color: #000;
+    }
+    .popup-text {
+      font-size: 14px;
+      text-align: center;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/viewerjs@1.11.3/dist/viewer.min.js"></script>
+
+  <script>
+    const map = L.map('map').setView([31.2304, 121.4737], 4);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const locations = [
+      {
+        name: '上海',
+        coord: [31.2304, 121.4737],
+        folder: 'pictures/Shanghai',
+        images: [
+          "CatHead.png",
+          "HK_VictoriaHarbor.JPG",
+          "HK_daylight.JPG",
+          "DSC_3349.JPG",
+          "DSC_3361.JPG",
+          "DSC_2975.JPG",
+          "DSC_3178.JPG"
+        ],
+        desc: '外滩夜景真的震撼，doge！'
+      },
+      {
+        name: 'HK',
+        coord: [22.304359, 114.173567],
+        folder: 'pictures/HongKong',
+        images: [
+          "HK_VictoriaHarbor.JPG",
+          "HK_daylight.JPG",
+          "DSC_3349.JPG",
+          "DSC_3361.JPG",
+          "DSC_2975.JPG",
+          "DSC_3178.JPG"
+        ],
+        desc: '维多利亚港非常漂亮!'
+      },
+      {
+        name: 'Arona',
+        coord: [45.757011, 8.560010],
+        folder: 'pictures/Arona',
+        images: [
+          "DSC_5670.JPG",
+          "DSC_5836.JPG",
+          "DSC_5770.JPG",
+          "DSC_5794.JPG",
+          "DSC_5801.JPG",
+          "DSC_5834.JPG"
+        ],
+        desc: '看着美丽的湖面，喝着 Macchiato，我觉得理想生活就应该这样！'
+      }
+    ];
+
+    locations.forEach(loc => {
+      const popupId = `carousel-${loc.name}`.replace(/\s+/g, '-');
+
+      const popupHTML = `
+        <div class="popup-title">${loc.name}</div>
+        <div class="photo-carousel viewer-group" id="${popupId}">
+          ${loc.images.map((img, i) => {
+            const base = img.replace(/\.(JPG|jpg|png)$/i, '');
+            const ext = img.split('.').pop();
+            return `<img class="carousel-img viewer-item${i === 0 ? ' active' : ''}" 
+              src="${loc.folder}/${base}-small.${ext}" 
+              data-original="${loc.folder}/${img}" 
+              alt="${base}" />`;
+          }).join('')}
+          <button class="carousel-arrow carousel-prev" onclick="prevImage('${popupId}')">❮</button>
+          <button class="carousel-arrow carousel-next" onclick="nextImage('${popupId}')">❯</button>
+        </div>
+        <p class="popup-text">${loc.desc}</p>
+      `;
+
+      L.marker(loc.coord).addTo(map).bindPopup(popupHTML);
+    });
+
+    function prevImage(id) {
+      const container = document.getElementById(id);
+      const images = Array.from(container.querySelectorAll('img'));
+      const current = images.findIndex(img => img.classList.contains('active'));
+      images[current].classList.remove('active');
+      const nextIndex = (current - 1 + images.length) % images.length;
+      images[nextIndex].classList.add('active');
+    }
+
+    function nextImage(id) {
+      const container = document.getElementById(id);
+      const images = Array.from(container.querySelectorAll('img'));
+      const current = images.findIndex(img => img.classList.contains('active'));
+      images[current].classList.remove('active');
+      const nextIndex = (current + 1) % images.length;
+      images[nextIndex].classList.add('active');
+    }
+
+    map.on('popupopen', function (e) {
+      const group = e.popup._contentNode.querySelector('.viewer-group');
+      if (group) {
+        const cloneContainer = document.createElement('div');
+        group.querySelectorAll('img').forEach(img => {
+          const copy = document.createElement('img');
+          copy.src = img.dataset.original;
+          cloneContainer.appendChild(copy);
+        });
+        const viewer = new Viewer(cloneContainer, {
+          hidden: () => viewer.destroy()
+        });
+        group.querySelectorAll('img').forEach(img => {
+          img.addEventListener('click', () => viewer.show());
+        });
+      }
+    });
+  </script>
+</body>
+</html>
