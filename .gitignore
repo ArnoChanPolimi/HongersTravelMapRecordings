@@ -1,0 +1,24 @@
+# .gitignore 上传忽略规则：
+#
+# 忽略 xxx文件夹
+# xxx/
+#
+# 忽略临时文件夹
+# temp/
+#
+## 忽略日志文件
+# *.log
+#
+# 忽略单个敏感文件
+# secret.txt
+#
+# 忽略 config 文件夹里的 settings.json
+# config/settings.json  
+# 
+#
+# 把具体需要忽略的内容写在下面：
+Nikon/
+.history/
+raw_assets/
+migrate.sh
+
