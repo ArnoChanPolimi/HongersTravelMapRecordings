@@ -604,4 +604,103 @@ const locations = [
     ],
     desc: 'Milano'
     },
+    {
+    name: 'Bergamo',
+    coord: [45.695200, 9.668300],
+    folder: 'pictures/Bergamo',
+    images: [
+
+        "DSC_7853.JPG",
+        "DSC_7854.JPG",
+        "DSC_7857.JPG",
+    ],
+    desc: 'Bergamo'
+    },
+    {
+    name: 'Sevilla',
+    coord: [37.383141, -5.990159],
+    folder: 'pictures/Sevilla',
+    images: [
+
+        "DSC_7897.JPG",
+        "DSC_7920.JPG",
+        "DSC_7925.JPG",
+        "DSC_7930.JPG",
+        "Sevilla01.jpg",
+    ],
+    desc: 'Sevilla: Free Orange City'
+    },
+    {
+    name: 'Granada',
+    coord: [37.188172, -3.599204],
+    folder: 'pictures/Granada',
+    images: [
+
+        "DSC_7934.JPG",
+        "DSC_7944.JPG",
+        "DSC_7958.JPG",
+        "DSC_7970.JPG",
+        "DSC_7982.JPG",
+        "DSC_7994.JPG",
+        "DSC_7997.JPG",
+    ],
+    desc: 'Granada: The city of Alhambra'
+    },
+    {
+    name: 'Barcelona',
+    coord: [41.385063, 2.173404],
+    folder: 'pictures/Barcelona',
+    images: [
+
+        "DSC_8017.JPG",
+        "DSC_8025.JPG",
+        "DSC_8044.JPG",
+        "DSC_8065.JPG",
+        "DSC_8085.JPG",
+        "DSC_8096.JPG",
+        "DSC_8097.JPG",
+        "DSC_8120.JPG",
+        "DSC_8143.JPG",
+        "DSC_8159.JPG",
+        "DSC_8187.JPG",
+    ],
+    desc: 'St Family Cathedral'
+    },
+    {
+    name: 'Nice',
+    coord: [43.695997, 7.279825],
+    folder: 'pictures/Nice',
+    images: [
+
+        "DSC_8251.JPG",
+        "DSC_8285.JPG",
+        "DSC_8348.JPG",
+        "DSC_8382.JPG",
+        "DSC_8396.JPG",
+        "DSC_8403.JPG",
+        "DSC_8431.JPG",
+        "DSC_8457.JPG",
+        "DSC_8459.JPG",
+        "DSC_8506.JPG",
+        "DSC_8516.JPG",
+        "DSC_8532.JPG",
+        "DSC_8535.JPG",
+        "DSC_8551.JPG",
+        "DSC_8556.JPG",
+        "DSC_8568.JPG",
+    ],
+    desc: 'Blue Coast Nice'
+    },
+    {
+    name: 'Antibes',
+    coord: [43.584874, 7.130079],
+    folder: 'pictures/Antibes',
+    images: [
+
+        "DSC_8204.JPG",
+        "DSC_8240.JPG",
+        "DSC_8249.JPG",
+    ],
+    desc: 'Antibes: The French Riviera'
+    },
 ];
