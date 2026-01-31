@@ -206,13 +206,13 @@ h1 {
 /* ==========================================================================
    6. 其他组件
    ========================================================================== */
-#clustrmap-link {
+ #clustrmap-link {
     position: fixed;
-    top: 20px;
+    top: 15px;      /* 稍微上移一点，对齐 header 内容 */
     right: 20px;
-    font-size: 32px;
+    font-size: 32px; /* 稍微调小一点点，更精致 */
     cursor: pointer;
-    z-index: 1000;
+    z-index: 1005;  /* 必须大于 1001 (Header) */
     text-decoration: none;
     transition: transform 0.2s;
 }
