@@ -15,5 +15,8 @@ Curious about my travel adventures? Explore the detailed journey by clicking the
 - 🗺️ Discover new places along with me!  
 
 ---
+Notice: You only need to run `bash update_photos.sh` (after setting up the new city entry in advance).
+
+---
 
 Happy exploring! 🚀

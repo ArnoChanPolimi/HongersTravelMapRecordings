@@ -703,4 +703,92 @@ const locations = [
     ],
     desc: 'Antibes: The French Riviera'
     },
+    {
+    name: 'Amsterdam',
+    coord: [52.3676, 4.9041],
+    folder: 'pictures/Amsterdam',
+    images: [
+
+        "DSC_8751.JPG",
+        "DSC_8783.JPG",
+        "DSC_8790.JPG",
+        "DSC_8807.JPG",
+    ],
+    desc: 'Amsterdam: The City of Canals'
+    },
+    {
+    name: 'Leiden',
+    coord: [52.159032, 4.492714],
+    folder: 'pictures/Leiden',
+    images: [
+
+        "DSC_8840.JPG",
+        "DSC_8857.JPG",
+        "DSC_8901.JPG",
+        "DSC_8922.JPG",
+        "DSC_8928.JPG",
+        "DSC_8940.JPG",
+        "DSC_8985.JPG",
+        "DSC_9014.JPG",
+    ],
+    desc: 'Leiden: The City of Tulips'
+    },
+    {
+    name: 'Katwijk',
+    coord: [52.206172, 4.391517],
+    folder: 'pictures/Katwijk',
+    images: [
+
+        "DSC_9038.JPG",
+        "DSC_9046.JPG",
+        "DSC_9120.JPG",
+        "DSC_9159.JPG",
+        "DSC_9175.JPG",
+        "DSC_9183.JPG",
+        "DSC_9188.JPG",
+        "DSC_9190.JPG",
+        "DSC_9203.JPG",
+        "Katwijk01.jpg",
+        "Katwijk02.jpg",
+    ],
+    desc: 'Katwijk aan Zee'
+    },
+    {
+    name: 'Middelburg',
+    coord: [51.4833, 3.6167],
+    folder: 'pictures/Middelburg',
+    images: [
+
+        "Middelburg01.jpg",
+        "Middelburg02.jpg",
+        "Middelburg03.jpg",
+    ],
+    desc: 'Middelburg: Zeeland Capital'
+    },
+    {
+    name: 'Antwerpen',
+    coord: [51.2194, 4.4025],
+    folder: 'pictures/Antwerpen',
+    images: [
+
+        "Antwerpen01.jpg",
+        "Antwerpen02.jpg",
+        "Antwerpen03.jpg",
+        "DSC_9226.JPG",
+        "DSC_9259.JPG",
+    ],
+    desc: 'Antwerpen: The Gateway to Flanders'
+    },
+    {
+    name: 'Bruxelles',
+    coord: [50.8333, 4.3333],
+    folder: 'pictures/Bruxelles',
+    images: [
+
+        "Bruxelles01.jpg",
+        "Bruxelles02.jpg",
+        "Bruxelles03.jpg",
+    ],
+    desc: 'Bruxelles: Chaoclate and Beer'
+    },
 ];
