@@ -791,4 +791,37 @@ const locations = [
     ],
     desc: 'Bruxelles: Chaoclate and Beer'
     },
+    {
+    name: 'Lanzarote',
+    coord: [29.0469, -13.5899],
+    folder: 'pictures/Lanzarote',
+    images: [
+
+        "DSC_9414.JPG",
+        "DSC_9417.JPG",
+        "DSC_9632.JPG",
+        "DSC_9655.JPG",
+        "DSC_9736.JPG",
+        "DSC_9781.JPG",
+        "DSC_9791.JPG",
+        "DSC_9815.JPG",
+        "DSC_9825.JPG",
+    ],
+    desc: 'Lanzarote: Volcanic island light'
+    },
+    {
+    name: 'Locarno',
+    coord: [46.1699, 8.7943],
+    folder: 'pictures/Locarno',
+    images: [
+
+        "DSC_8587.JPG",
+        "DSC_8591.JPG",
+        "DSC_8592.JPG",
+        "DSC_8610.JPG",
+        "DSC_8619.JPG",
+        "DSC_8682.JPG",
+    ],
+    desc: 'Locarno: Lake Maggiore and Swiss sunshine'
+    },
 ];
