@@ -8,16 +8,19 @@ RAW_ROOT="raw_assets"
 
 # Metadata used when an entirely new folder appears under pictures/.
 declare -A CITY_NAMES=(
+  [Dolomites]="Dolomites"
   [Lanzarote]="Lanzarote"
   [Locarno]="Locarno"
 )
 
 declare -A CITY_COORDS=(
+  [Dolomites]="[46.4102, 11.8440]"
   [Lanzarote]="[29.0469, -13.5899]"
   [Locarno]="[46.1699, 8.7943]"
 )
 
 declare -A CITY_DESCS=(
+  [Dolomites]="Dolomites: Alpine peaks and mountain light"
   [Lanzarote]="Lanzarote: Volcanic island light"
   [Locarno]="Locarno: Lake Maggiore and Swiss sunshine"
 )

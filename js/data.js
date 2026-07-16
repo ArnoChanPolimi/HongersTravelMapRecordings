@@ -824,4 +824,35 @@ const locations = [
     ],
     desc: 'Locarno: Lake Maggiore and Swiss sunshine'
     },
+    {
+    name: 'Dolomites',
+    coord: [46.4102, 11.8440],
+    folder: 'pictures/Dolomites',
+    images: [
+
+        "DSC_0022.JPG",
+        "DSC_0074.JPG",
+        "DSC_0122.JPG",
+        "DSC_0125.JPG",
+        "DSC_0131.JPG",
+        "DSC_0139.JPG",
+        "DSC_0149.JPG",
+        "DSC_0177.JPG",
+        "DSC_0180.JPG",
+        "DSC_0184.JPG",
+        "DSC_0189.JPG",
+        "DSC_0240.JPG",
+        "DSC_0242.JPG",
+        "DSC_0366.JPG",
+        "DSC_0394.JPG",
+        "DSC_0413.JPG",
+        "DSC_0476.JPG",
+        "DSC_0522.JPG",
+        "DSC_0534.JPG",
+        "DSC_9970.JPG",
+        "DSC_9972.JPG",
+        "DSC_9995.JPG",
+    ],
+    desc: 'Dolomites: Alpine peaks and mountain light'
+    },
 ];
