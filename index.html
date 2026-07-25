@@ -19,6 +19,15 @@
 
   <div id="map"></div>
   <a id="clustrmap-link" href="https://clustrmaps.com/site/1c80g" target="_blank">🌏</a>
+  <div class="country-dock" id="country-dock">
+    <button class="country-toggle" id="country-toggle" type="button" aria-expanded="true" aria-controls="country-panel">
+      <span class="country-toggle-text">Countries</span>
+      <span class="country-toggle-icon" aria-hidden="true">⌄</span>
+    </button>
+    <div class="country-panel" id="country-panel">
+      <div class="country-strip" id="country-strip"></div>
+    </div>
+  </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>

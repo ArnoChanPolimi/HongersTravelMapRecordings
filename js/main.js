@@ -6,6 +6,52 @@ const map = L.map('map').setView([31.2304, 121.4737], 4);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
+const countryViews = [
+  { id: 'china', name: 'China', flag: 'assets/country-flags/china.svg', center: [35.8617, 104.1954], zoom: 4 },
+  { id: 'italy', name: 'Italy', flag: 'assets/country-flags/italy.svg', center: [42.5042, 12.6464], zoom: 6 },
+  { id: 'switzerland', name: 'Switzerland', flag: 'assets/country-flags/switzerland.svg', center: [46.8182, 8.2275], zoom: 7 },
+  { id: 'france', name: 'France', flag: 'assets/country-flags/france.svg', center: [46.2276, 2.2137], zoom: 6 },
+  { id: 'spain', name: 'Spain', flag: 'assets/country-flags/spain.svg', center: [40.4637, -3.7492], zoom: 6 },
+  { id: 'netherlands', name: 'Netherlands', flag: 'assets/country-flags/netherlands.svg', center: [52.1326, 5.2913], zoom: 7 },
+  { id: 'belgium', name: 'Belgium', flag: 'assets/country-flags/belgium.svg', center: [50.5039, 4.4699], zoom: 7 },
+  { id: 'germany', name: 'Germany', flag: 'assets/country-flags/germany.svg', center: [51.1657, 10.4515], zoom: 6 },
+];
+
+function setupCountryDock() {
+  const dock = document.getElementById('country-dock');
+  const toggle = document.getElementById('country-toggle');
+  const strip = document.getElementById('country-strip');
+
+  if (!dock || !toggle || !strip) return;
+
+  countryViews.forEach(country => {
+    const button = document.createElement('button');
+    button.className = 'country-button';
+    button.type = 'button';
+    button.title = country.name;
+    button.setAttribute('aria-label', `Go to ${country.name}`);
+    button.innerHTML = `
+      <img src="${country.flag}" alt="" loading="lazy" />
+      <span>${country.name}</span>
+    `;
+
+    button.addEventListener('click', () => {
+      map.closePopup();
+      map.flyTo(country.center, country.zoom, { animate: true, duration: 1.15 });
+      strip.querySelectorAll('.country-button').forEach(item => item.classList.remove('active'));
+      button.classList.add('active');
+    });
+
+    strip.appendChild(button);
+  });
+
+  toggle.addEventListener('click', () => {
+    const collapsed = dock.classList.toggle('is-collapsed');
+    toggle.setAttribute('aria-expanded', String(!collapsed));
+  });
+}
+
+setupCountryDock();
 
 // 2. Fancybox 配置
 Fancybox.bind("[data-fancybox]", {
