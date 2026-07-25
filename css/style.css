@@ -206,20 +206,6 @@ h1 {
 /* ==========================================================================
    6. 其他组件
    ========================================================================== */
- #clustrmap-link {
-    position: fixed;
-    top: 15px;      /* 稍微上移一点，对齐 header 内容 */
-    right: 20px;
-    font-size: 32px; /* 稍微调小一点点，更精致 */
-    cursor: pointer;
-    z-index: 1005;  /* 必须大于 1001 (Header) */
-    text-decoration: none;
-    transition: transform 0.2s;
-}
-
-#clustrmap-link:hover {
-    transform: scale(1.3);
-}
 /* ==========================================================================
    7. Country quick navigation
    ========================================================================== */
@@ -285,7 +271,7 @@ h1 {
 
 .country-strip {
     display: grid;
-    grid-template-columns: repeat(8, minmax(74px, 1fr));
+    grid-template-columns: repeat(9, minmax(68px, 1fr));
     gap: 8px;
     padding: 10px;
 }
@@ -321,6 +307,15 @@ h1 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.stats-button {
+    text-decoration: none;
+}
+
+.stats-button .stats-glyph {
+    font-size: 30px;
+    line-height: 1;
 }
 
 .country-button:hover,

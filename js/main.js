@@ -24,6 +24,19 @@ function setupCountryDock() {
 
   if (!dock || !toggle || !strip) return;
 
+  const statsButton = document.createElement('a');
+  statsButton.className = 'country-button stats-button';
+  statsButton.href = 'https://clustrmaps.com/site/1c80g';
+  statsButton.target = '_blank';
+  statsButton.rel = 'noopener noreferrer';
+  statsButton.title = 'Open visitor statistics';
+  statsButton.setAttribute('aria-label', 'Open visitor statistics');
+  statsButton.innerHTML = `
+    <span class="stats-glyph" aria-hidden="true">🌏</span>
+    <span>Stats</span>
+  `;
+  strip.appendChild(statsButton);
+
   countryViews.forEach(country => {
     const button = document.createElement('button');
     button.className = 'country-button';
@@ -52,7 +65,6 @@ function setupCountryDock() {
 }
 
 setupCountryDock();
-
 // 2. Fancybox 配置
 Fancybox.bind("[data-fancybox]", {
   Video: { autoStart: false },
