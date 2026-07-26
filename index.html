@@ -8,7 +8,7 @@
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
-  <link rel="stylesheet" href="css/style.css?v=20260726-goatcounter">
+  <link rel="stylesheet" href="css/style.css?v=20260726-country-chevron">
 </head>
 
 <body>
@@ -22,7 +22,10 @@
   <div class="country-dock" id="country-dock">
     <button class="country-toggle" id="country-toggle" type="button" aria-expanded="true" aria-controls="country-panel">
       <span class="country-toggle-text">Countries</span>
-      <span class="country-toggle-icon" aria-hidden="true">⌄</span>
+      <span class="country-toggle-icon" aria-hidden="true">
+        <img class="country-chevron country-chevron-down" src="assets/ui/chevron-down.svg" alt="">
+        <img class="country-chevron country-chevron-up" src="assets/ui/chevron-up.svg" alt="">
+      </span>
     </button>
     <div class="country-panel" id="country-panel">
       <div class="country-strip" id="country-strip"></div>
