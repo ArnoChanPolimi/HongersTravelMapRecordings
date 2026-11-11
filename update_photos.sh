@@ -11,19 +11,37 @@ declare -A CITY_NAMES=(
   [Dolomites]="Dolomites"
   [Lanzarote]="Lanzarote"
   [Locarno]="Locarno"
+  [Copenhagen]="Copenhagen"
+  [Gdansk]="Gdańsk"
+  [Warszawa]="Warszawa"
 )
 
 declare -A CITY_COORDS=(
   [Dolomites]="[46.4102, 11.8440]"
   [Lanzarote]="[29.0469, -13.5899]"
   [Locarno]="[46.1699, 8.7943]"
+  [Copenhagen]="[55.6761, 12.5683]"
+  [Gdansk]="[54.3520, 18.6466]"
+  [Warszawa]="[52.2297, 21.0122]"
 )
 
 declare -A CITY_DESCS=(
   [Dolomites]="Dolomites: Alpine peaks and mountain light"
   [Lanzarote]="Lanzarote: Volcanic island light"
   [Locarno]="Locarno: Lake Maggiore and Swiss sunshine"
+  [Copenhagen]="Copenhagen: Nyhavn colors and the Little Mermaid"
+  [Gdansk]="Gdańsk & Sopot: Baltic beaches and the Neptune Fountain"
+  [Warszawa]="Warszawa: Castle Square and the rebuilt Old Town"
 )
+
+# Photos that must stay local (never compressed into pictures/, never uploaded).
+# One "City/FileName" per line in raw_assets/.local_only (raw_assets is gitignored).
+LOCAL_ONLY_FILE="$RAW_ROOT/.local_only"
+
+is_local_only() {
+    [ -f "$LOCAL_ONLY_FILE" ] || return 1
+    tr -d '\r' < "$LOCAL_ONLY_FILE" | grep -Fxq "$1"
+}
 
 image_files_in_dir() {
     local dir="$1"
@@ -46,6 +64,10 @@ if [ -d "$RAW_ROOT" ]; then
             [ -e "$img" ] || continue
 
             img_name=$(basename "$img")
+            if is_local_only "$city_name/$img_name"; then
+                echo "  SKIP local-only $city_name/$img_name"
+                continue
+            fi
             extension="${img_name##*.}"
             filename_no_ext="${img_name%.*}"
             target_hd="$PICTURES_ROOT/$city_name/$img_name"

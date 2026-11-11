@@ -15,6 +15,8 @@ const countryViews = [
   { id: 'netherlands', name: 'Netherlands', flag: 'assets/country-flags/netherlands.svg', center: [52.1326, 5.2913], zoom: 7 },
   { id: 'belgium', name: 'Belgium', flag: 'assets/country-flags/belgium.svg', center: [50.5039, 4.4699], zoom: 7 },
   { id: 'germany', name: 'Germany', flag: 'assets/country-flags/germany.svg', center: [51.1657, 10.4515], zoom: 6 },
+  { id: 'denmark', name: 'Denmark', flag: 'assets/country-flags/denmark.svg', center: [55.9, 11.2], zoom: 7 },
+  { id: 'poland', name: 'Poland', flag: 'assets/country-flags/poland.svg', center: [52.6, 19.4], zoom: 6 },
 ];
 
 function setupCountryDock() {

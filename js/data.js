@@ -855,4 +855,44 @@ const locations = [
     ],
     desc: 'Dolomites: Alpine peaks and mountain light'
     },
+    {
+    name: 'Copenhagen',
+    coord: [55.6761, 12.5683],
+    folder: 'pictures/Copenhagen',
+    images: [
+
+        "Copenhagen_Nyhavn.jpg",
+        "Copenhagen_Nyhavn02.jpg",
+        "DSC_0803.JPG",
+    ],
+    desc: 'Copenhagen: Nyhavn colors and the Little Mermaid'
+    },
+    {
+    name: 'Gdańsk',
+    coord: [54.3520, 18.6466],
+    folder: 'pictures/Gdansk',
+    images: [
+
+        "DSC_0859.JPG",
+        "DSC_0861.JPG",
+        "DSC_0869.JPG",
+        "DSC_0872.JPG",
+        "DSC_0899.JPG",
+    ],
+    desc: 'Gdańsk & Sopot: Baltic beaches and the Neptune Fountain'
+    },
+    {
+    name: 'Warszawa',
+    coord: [52.2297, 21.0122],
+    folder: 'pictures/Warszawa',
+    images: [
+
+        "DSC_0920.JPG",
+        "DSC_0965.JPG",
+        "DSC_1002.JPG",
+        "DSC_1028.JPG",
+        "DSC_1054.JPG",
+    ],
+    desc: 'Warszawa: Castle Square and the rebuilt Old Town'
+    },
 ];
